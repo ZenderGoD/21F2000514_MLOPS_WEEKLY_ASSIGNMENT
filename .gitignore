@@ -2,3 +2,5 @@ __pycache__/
 *.pyc
 .venv/
 .ipynb_checkpoints/
+artifacts/
+feature_repo/data/*.db

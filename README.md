@@ -1,5 +1,36 @@
 # IRIS ML Pipeline on Vertex AI — Week 1
 
+## Week 3 — Feast feature store
+
+The `week_3` branch adds a local Feast repository under `feature_repo/`. The
+repository uses a Parquet offline source and a SQLite online store. The source
+contains a stable `iris_id` and UTC `event_timestamp`, allowing Feast to do
+point-in-time-correct historical retrieval.
+
+Install the dependencies and run the complete local demonstration:
+
+```bash
+pip install -r requirements.txt
+./run_feast_pipeline.sh v1
+```
+
+The script performs `feast apply`, materializes the online store, trains a
+decision tree using `get_historical_features()`, and predicts sample IDs using
+`get_online_features()`. The model and metrics are written to `artifacts/`.
+
+Useful individual commands are:
+
+```bash
+python src/feast_prepare.py --version v1
+(cd feature_repo && feast apply)
+(cd feature_repo && feast materialize-incremental "$(date -u +%Y-%m-%dT%H:%M:%S)")
+python src/feast_train.py
+python src/feast_inference.py --ids 1 51 101
+```
+
+The training and inference scripts use only Feast feature references. The
+`species` column remains a label and is never registered as a model feature.
+
 A minimal pipeline for the IRIS classifier: data in GCS → training on Vertex AI Workbench → artifacts saved to GCS in folders named by timestamp → a separate inference script.
 
 ```

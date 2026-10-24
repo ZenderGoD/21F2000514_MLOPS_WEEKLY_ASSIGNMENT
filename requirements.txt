@@ -3,3 +3,5 @@ scikit-learn
 joblib
 fsspec
 gcsfs
+feast==0.67.0
+pyarrow

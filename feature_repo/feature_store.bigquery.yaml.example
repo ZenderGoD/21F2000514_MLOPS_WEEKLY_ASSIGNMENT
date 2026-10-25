@@ -1,0 +1,14 @@
+# Optional Task 6: copy this file to feature_store.yaml after replacing the
+# placeholders and enabling BigQuery in the GCP project. Keep SQLite as the
+# online store unless you have separately configured a supported online store.
+project: iris_feature_store
+registry: gs://YOUR_BUCKET/feast/registry.db
+provider: gcp
+offline_store:
+    type: bigquery
+    dataset: YOUR_BIGQUERY_DATASET
+    project_id: YOUR_GCP_PROJECT_ID
+online_store:
+    type: sqlite
+    path: data/online_store.db
+entity_key_serialization_version: 3

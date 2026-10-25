@@ -20,3 +20,9 @@ python src/feast_inference.py --ids 1 51 101
 `registry.db` and `online_store.db` are local Feast runtime state and are
 intentionally ignored by Git. They are recreated by `feast apply` and
 materialization.
+
+For the optional BigQuery task, copy `feature_store.bigquery.yaml.example`,
+replace the bucket, dataset, and project placeholders, enable the BigQuery API,
+and run `feast apply` from the feature repository. BigQuery is useful for a
+shared, scalable historical store; the local SQLite setup is cheaper and
+simpler for this small demonstration.
